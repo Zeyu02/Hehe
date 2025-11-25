@@ -337,6 +337,17 @@
             }
         }
 
+        @keyframes pulsePlay {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                box-shadow: 0 0 60px rgba(255, 0, 100, 0.8), 0 0 100px rgba(255, 0, 255, 0.5);
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.1);
+                box-shadow: 0 0 80px rgba(255, 0, 100, 1), 0 0 120px rgba(255, 0, 255, 0.8);
+            }
+        }
+
         .lyric-line.fade-out {
             animation: lyricFadeOut 1s ease-out forwards;
         }
@@ -914,6 +925,11 @@
             <source src="Your Universe (Lyrics) - Rico Blanco.mp3" type="audio/mpeg">
         </audio>
         
+        <!-- Play Button Overlay -->
+        <div id="playButton" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10000; cursor: pointer; background: rgba(255, 255, 255, 0.95); border-radius: 50%; width: 120px; height: 120px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 60px rgba(255, 0, 100, 0.8), 0 0 100px rgba(255, 0, 255, 0.5); animation: pulsePlay 2s ease-in-out infinite; backdrop-filter: blur(10px);">
+            <div style="font-size: 60px; margin-left: 8px; color: #ff006e;">▶</div>
+        </div>
+        
         <div class="lyrics-container">
             <div class="title" style="position: relative;">
                 <div class="title-shadow">MY BB</div>
@@ -1366,6 +1382,14 @@
         // Create particles on load for ambient effect
         window.addEventListener('load', () => {
             createParticles();
+        });
+
+        // Play button functionality
+        const playButton = document.getElementById('playButton');
+        playButton.addEventListener('click', () => {
+            audioPlayer.play();
+            playButton.style.display = 'none';
+            startLyrics();
         });
     </script>
 </body>
